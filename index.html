@@ -593,6 +593,8 @@
   </main>
 
   <script>
+    const STORAGE_PREFIX = "ipp-a0a1-test-progress";
+
     const questions = [
       {
             n: 1,
@@ -1272,6 +1274,7 @@
     const letters = ["A", "B", "C", "D"];
     const answers = Array(questions.length).fill(null);
     let current = 0;
+    let hasSavedProgress = false;
 
     const introScreen = document.getElementById("introScreen");
     const quizScreen = document.getElementById("quizScreen");
@@ -1287,6 +1290,8 @@
     const nextBtn = document.getElementById("nextBtn");
 
     document.getElementById("totalMeta").textContent = questions.length;
+    restoreProgress();
+    updateIntroState();
     document.getElementById("startBtn").addEventListener("click", () => showScreen("quiz"));
     document.getElementById("restartBtn").addEventListener("click", resetTest);
     document.getElementById("againBtn").addEventListener("click", resetTest);
@@ -1350,6 +1355,7 @@
         button.innerHTML = `<span class="letter">${letters[index]}</span><span>${formatInline(option)}</span>`;
         button.addEventListener("click", () => {
           answers[current] = index;
+          saveProgress();
           renderQuestion();
         });
         optionsBox.appendChild(button);
@@ -1459,7 +1465,70 @@
     function resetTest() {
       answers.fill(null);
       current = 0;
+      clearProgress();
+      updateIntroState();
       showScreen("intro");
+    }
+
+    function todayKey() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, "0");
+      const d = String(now.getDate()).padStart(2, "0");
+      return `${STORAGE_PREFIX}-${y}-${m}-${d}`;
+    }
+
+    function cleanupOldProgress() {
+      try {
+        Object.keys(localStorage)
+          .filter(key => key.startsWith(STORAGE_PREFIX) && key !== todayKey())
+          .forEach(key => localStorage.removeItem(key));
+      } catch {}
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(todayKey(), JSON.stringify({
+          current,
+          answers,
+          savedAt: new Date().toISOString()
+        }));
+      } catch {}
+      hasSavedProgress = answers.some(value => value !== null);
+      updateIntroState();
+    }
+
+    function restoreProgress() {
+      cleanupOldProgress();
+      try {
+        const raw = localStorage.getItem(todayKey());
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!Array.isArray(saved.answers) || saved.answers.length !== questions.length) return;
+        saved.answers.forEach((value, index) => {
+          answers[index] = Number.isInteger(value) ? value : null;
+        });
+        const savedCurrent = Number.isInteger(saved.current) ? saved.current : 0;
+        current = Math.min(Math.max(savedCurrent, 0), questions.length - 1);
+        hasSavedProgress = answers.some(value => value !== null);
+      } catch {}
+    }
+
+    function clearProgress() {
+      try {
+        localStorage.removeItem(todayKey());
+      } catch {}
+      hasSavedProgress = false;
+    }
+
+    function updateIntroState() {
+      const startBtn = document.getElementById("startBtn");
+      const done = answers.filter(value => value !== null).length;
+      if (hasSavedProgress && done > 0) {
+        startBtn.textContent = `继续测试（已完成 ${done} 题）`;
+      } else {
+        startBtn.textContent = "开始测试";
+      }
     }
   </script>
 </body>
