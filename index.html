@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>慢速意大利语 A0-A1 Percorso Diagnostic Test</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --panel: #fffdf9;
+      --ink: #25211b;
+      --muted: #766f63;
+      --line: #e5ddd0;
+      --accent: #bb4d32;
+      --accent-dark: #8f3523;
+      --accent-soft: #f3d9d0;
+      --green: #2f7d58;
+      --gold: #b98925;
+      --shadow: 0 18px 45px rgba(55, 42, 25, 0.1);
+      --radius: 8px;
+      --max: 880px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0)),
+        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    button, input { font: inherit; }
+
+    .shell {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
+      padding: 22px 0 34px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 0;
+      flex: 0 0 auto;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-sub {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 1px;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.6);
+      color: var(--muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 24px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, #fffdf9 0%, #fbf0e6 100%);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(25px, 5vw, 42px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      margin: 12px 0 0;
+      color: var(--muted);
+      max-width: 680px;
+      font-size: 15px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .meta {
+      padding: 15px 18px;
+      border-right: 1px solid var(--line);
+    }
+
+    .meta:last-child { border-right: 0; }
+
+    .meta b {
+      display: block;
+      font-size: 18px;
+    }
+
+    .meta span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    .intro-body, .quiz-body, .result-body {
+      padding: 22px 24px 24px;
+    }
+
+    .rules {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 20px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rules li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+    }
+
+    .rules li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 8px;
+      flex: 0 0 auto;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 7px;
+      padding: 12px 16px;
+      min-height: 46px;
+      cursor: pointer;
+      font-weight: 750;
+      transition: transform 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+    }
+
+    .btn:active { transform: translateY(1px); }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn.primary:hover { background: var(--accent-dark); }
+
+    .btn.secondary {
+      background: #f1ece4;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+
+    .btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      transform: none;
+    }
+
+    .progress-wrap {
+      padding: 18px 24px 0;
+    }
+
+    .progress-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .bar {
+      height: 9px;
+      background: #eadfce;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), #d4893b);
+      border-radius: inherit;
+      transition: width 0.2s ease;
+    }
+
+    .module-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+      font-size: 12px;
+      font-weight: 750;
+      margin-bottom: 14px;
+    }
+
+    .question {
+      font-size: clamp(20px, 4vw, 27px);
+      line-height: 1.32;
+      font-weight: 850;
+      letter-spacing: 0;
+      margin: 0 0 18px;
+    }
+
+    .question code, .option code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: #f4eadf;
+      border: 1px solid #ead9c7;
+      padding: 1px 5px;
+      border-radius: 5px;
+      white-space: normal;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .option {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--line);
+      background: #fffaf4;
+      color: var(--ink);
+      border-radius: 7px;
+      padding: 12px;
+      cursor: pointer;
+      min-height: 54px;
+    }
+
+    .option:hover { border-color: #cdbba5; }
+
+    .option.selected {
+      border-color: var(--accent);
+      background: #fff1e9;
+      box-shadow: 0 0 0 2px rgba(187, 77, 50, 0.11);
+    }
+
+    .letter {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #efe4d6;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      color: var(--accent-dark);
+    }
+
+    .option.selected .letter {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      min-height: 20px;
+    }
+
+    .result-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 20px;
+    }
+
+    .score {
+      font-size: clamp(42px, 12vw, 72px);
+      font-weight: 900;
+      line-height: 0.95;
+      color: var(--accent-dark);
+    }
+
+    .level-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #e9f4ed;
+      color: var(--green);
+      font-weight: 850;
+      margin-bottom: 10px;
+    }
+
+    .result-text {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin: 24px 0 12px;
+    }
+
+    .analysis {
+      display: grid;
+      gap: 10px;
+    }
+
+    .module-row {
+      display: grid;
+      grid-template-columns: minmax(120px, 190px) 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fffaf4;
+    }
+
+    .mini-bar {
+      height: 8px;
+      background: #eadfce;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .mini-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--green);
+      border-radius: inherit;
+    }
+
+    .rate {
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .wrong-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .wrong-item {
+      padding: 10px 12px;
+      border-left: 3px solid var(--gold);
+      background: #fff8eb;
+      border-radius: 0 7px 7px 0;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(100% - 18px, var(--max));
+        padding-top: 12px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .pill { display: none; }
+
+      .hero, .intro-body, .quiz-body, .result-body {
+        padding: 18px;
+      }
+
+      .progress-wrap {
+        padding: 16px 18px 0;
+      }
+
+      .meta-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .meta:nth-child(2) { border-right: 0; }
+      .meta:nth-child(1), .meta:nth-child(2) { border-bottom: 1px solid var(--line); }
+
+      .btn-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .btn-row .primary, .btn-row .wide {
+        grid-column: 1 / -1;
+      }
+
+      .option {
+        grid-template-columns: 32px 1fr;
+        padding: 11px;
+      }
+
+      .letter {
+        width: 32px;
+        height: 32px;
+      }
+
+      .result-head {
+        grid-template-columns: 1fr;
+      }
+
+      .module-row {
+        grid-template-columns: 1fr auto;
+      }
+
+      .module-row .mini-bar {
+        grid-column: 1 / -1;
+        order: 3;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">意</div>
+        <div>
+          <div class="brand-title">慢速意大利语 A0-A1</div>
+          <div class="brand-sub">Percorso Diagnostic Test</div>
+        </div>
+      </div>
+      <div class="pill">可直接部署到 GitHub Pages</div>
+    </header>
+
+    <section id="introScreen" class="screen active">
+      <div class="card">
+        <div class="hero">
+          <h1>A0-A1 Percorso Diagnostic Test</h1>
+          <p class="lead">这是一份面向中国学生在意大利生活的入门诊断测试。题目围绕自我介绍、国籍、数字时间、餐厅购物、问路办证和基础喜好表达。</p>
+        </div>
+        <div class="meta-grid">
+          <div class="meta"><b id="totalMeta">56</b><span>题单选</span></div>
+          <div class="meta"><b>4</b><span>个等级</span></div>
+          <div class="meta"><b>10</b><span>模块分析</span></div>
+          <div class="meta"><b>100%</b><span>自动评分</span></div>
+        </div>
+        <div class="intro-body">
+          <ul class="rules">
+            <li>每题只有一个最佳答案，选中答案后才能进入下一题。</li>
+            <li>可以使用上一题/下一题检查答案，提交前仍可修改。</li>
+            <li>提交后会显示总分、等级、学习建议和各模块正确率。</li>
+          </ul>
+          <div class="btn-row">
+            <span class="footer-note">建议在安静环境中完成，按真实第一反应作答。</span>
+            <button class="btn primary wide" id="startBtn" type="button">开始测试</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quizScreen" class="screen">
+      <div class="card">
+        <div class="progress-wrap">
+          <div class="progress-line">
+            <span id="progressText">第 1 / 56 题</span>
+            <span id="answeredText">已完成 0 题</span>
+          </div>
+          <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+        </div>
+        <div class="quiz-body">
+          <div class="module-tag" id="moduleTag">发音与拼读</div>
+          <h2 class="question" id="questionText"></h2>
+          <div class="options" id="optionsBox"></div>
+          <div class="hint" id="hintText"></div>
+          <div class="btn-row" style="margin-top: 16px;">
+            <button class="btn secondary" id="prevBtn" type="button">上一题</button>
+            <button class="btn ghost" id="restartBtn" type="button">重新开始</button>
+            <button class="btn primary" id="nextBtn" type="button">下一题</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="screen">
+      <div class="card">
+        <div class="hero">
+          <h1>诊断结果</h1>
+          <p class="lead">下面是你的总分、当前等级和各模块表现。它不是排名，更像一张复习地图。</p>
+        </div>
+        <div class="result-body">
+          <div class="result-head">
+            <div>
+              <div class="level-badge" id="levelBadge"></div>
+              <p class="result-text" id="levelDesc"></p>
+            </div>
+            <div class="score" id="scoreText"></div>
+          </div>
+
+          <h3 class="section-title">学习建议</h3>
+          <p class="result-text" id="adviceText"></p>
+
+          <h3 class="section-title">模块正确率</h3>
+          <div class="analysis" id="analysisBox"></div>
+
+          <h3 class="section-title" id="wrongTitle">错题回看</h3>
+          <div class="wrong-list" id="wrongList"></div>
+
+          <div class="btn-row" style="margin-top: 22px;">
+            <button class="btn secondary" id="reviewBtn" type="button">回到题目检查</button>
+            <button class="btn primary" id="againBtn" type="button">重新测试</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const questions = [
+      {n:1,m:"发音与拼读",q:"你在意大利前台登记，工作人员请你拼写姓氏。你想表达“Z 像 Zara”。哪一句最合适？",o:["Z come Zara","Zara è il cognome","Mi chiamo Zara","Il mio nome è Z"],a:0},
+      {n:2,m:"发音与拼读",q:"看到单词 `casa`，其中 `ca` 的读音更接近哪一组？",o:["“卡”","“恰”","“夏”","“尼亚”"],a:0},
+      {n:3,m:"发音与拼读",q:"看到单词 `ciao`，其中 `ci` 的读音更接近哪一组？",o:["“卡”","“恰/乔”开头的软音","“格”","“尼”"],a:1},
+      {n:4,m:"发音与拼读",q:"在城市拼读法里，`H` 常用哪个词来拼？",o:["Hotel","Roma","Napoli","Venezia"],a:0},
+      {n:5,m:"发音与拼读",q:"你听到别人拼写：`M come Milano, I come Imola, N come Napoli, G come Genova`。这个名字开头最可能是？",o:["MING","MINI","GINA","NINO"],a:0},
+      {n:6,m:"发音与拼读",q:"哪个词最适合练习 `gn` 的读音？",o:["bagno","ciao","pizza","Roma"],a:0},
+      {n:7,m:"发音与拼读",q:"哪个词最适合练习 `gli` 的读音？",o:["figli","casa","euro","dove"],a:0},
+      {n:8,m:"发音与拼读",q:"你想礼貌地请对方再拼一次名字。哪一句最接近课程表达？",o:["Come si scrive il tuo nome?","Qual è il tuo nome?","Di dove sei?","Come stai?"],a:0},
+      {n:9,m:"自我介绍",q:"第一次见面，对方说：`Ciao!` 你最自然的回应是？",o:["Ciao!","Buonanotte!","Arrabbiato!","Documento!"],a:0},
+      {n:10,m:"自我介绍",q:"你想说“我叫 Ming”。哪一句最合适？",o:["Io mi chiamo Ming.","Io ti chiami Ming.","Tu mi chiamo Ming.","Lui mi chiamo Ming."],a:0},
+      {n:11,m:"自我介绍",q:"对方问：`Come ti chiami?` 他在问什么？",o:["你叫什么名字？","你是哪里人？","你怎么样？","你喜欢什么？"],a:0},
+      {n:12,m:"自我介绍",q:"你想问“那你呢？”哪一句最自然？",o:["E tu?","Anche io.","Va bene.","Non c'è male."],a:0},
+      {n:13,m:"自我介绍",q:"第一次认识别人，想说“很高兴认识你”。最合适的是？",o:["Piacere!","Prego!","Permesso!","Peccato!"],a:0},
+      {n:14,m:"自我介绍",q:"在办公室对陌生人打招呼，哪一个更礼貌？",o:["Salve!","Ciao!","E tu?","Grazie!"],a:0},
+      {n:15,m:"自我介绍",q:"晚上见到不太熟的人，最合适的问候是？",o:["Buonasera","Buongiorno","Buonanotte","Arrivederci"],a:0},
+      {n:16,m:"自我介绍",q:"离开时想说“再见”，哪一句合适？",o:["Arrivederci","Piacere","Salve","Prego"],a:0},
+      {n:17,m:"自我介绍",q:"前台问：`Qual è il cognome?` 她想知道什么？",o:["姓","名字","出生地","国籍"],a:0},
+      {n:18,m:"自我介绍",q:"你想说“我的名字是 Haohao”。哪一句最合适？",o:["Il mio nome è Haohao.","Il mio cognome è Haohao.","Sono di Haohao.","Haohao si scrive Cina."],a:0},
+      {n:19,m:"国家国籍",q:"对方问：`Di dove sei?` 你可以怎么回答？",o:["Sono di Wenzhou.","Mi chiamo Wenzhou.","Sto bene.","Vorrei Wenzhou."],a:0},
+      {n:20,m:"国家国籍",q:"你想说“我是中国人”。哪一句正确、自然？",o:["Sono cinese.","Sono Cina.","Sono di cinese.","Mi chiamo cinese."],a:0},
+      {n:21,m:"国家国籍",q:"你想问别人“你是中国人吗？”哪一句合适？",o:["Tu sei cinese?","Di dove sei cinese?","Come ti chiami cinese?","Sei di Cina nome?"],a:0},
+      {n:22,m:"国家国籍",q:"你想介绍一位男生：“他叫 Liang，是中国人，来自北京。”哪一句最合适？",o:["Lui si chiama Liang, è cinese di Pechino.","Lei si chiama Liang, è cinese di Pechino.","Lui mi chiamo Liang, sono di Pechino.","Liang come si scrive Pechino."],a:0},
+      {n:23,m:"国家国籍",q:"`Lei di dov'è?` 这句话在问什么？",o:["她是哪里人？","她叫什么名字？","她现在在哪里？","她怎么样？"],a:0},
+      {n:24,m:"国家国籍",q:"你在表格里看到 `nazionalità` 一栏，需要填国籍。你最可能填：",o:["cinese","Wenzhou","Haohao","lunedì"],a:0},
+      {n:25,m:"数字与时间",q:"`undici` 是多少？",o:["11","12","20","100"],a:0},
+      {n:26,m:"数字与时间",q:"`ventotto` 是多少？",o:["28","18","38","80"],a:0},
+      {n:27,m:"数字与时间",q:"店员说：`Sono trenta euro.` 价格是多少？",o:["30 欧元","13 欧元","3 欧元","100 欧元"],a:0},
+      {n:28,m:"数字与时间",q:"`cento` 是多少？",o:["100","10","50","1"],a:0},
+      {n:29,m:"数字与时间",q:"今天是星期一。意大利语是？",o:["lunedì","venerdì","domenica","sabato"],a:0},
+      {n:30,m:"数字与时间",q:"`oggi` 是什么意思？",o:["今天","昨天","后天","星期日"],a:0},
+      {n:31,m:"数字与时间",q:"`ieri` 是什么意思？",o:["昨天","今天","后天","明天早上"],a:0},
+      {n:32,m:"数字与时间",q:"`Che giorno è oggi?` 最接近什么意思？",o:["今天星期几/今天是什么日子？","你今天怎么样？","你今天去哪里？","今天多少钱？"],a:0},
+      {n:33,m:"家庭",q:"你想说“我有一个兄弟”。哪一句最合适？",o:["Ho un fratello.","Sono un fratello.","Mi chiamo fratello.","Vorrei un fratello."],a:0},
+      {n:34,m:"家庭",q:"你想说“我有一个姐妹”。哪一句最合适？",o:["Ho una sorella.","Ho un sorella.","Sono una sorella.","Mi piace una sorella."],a:0},
+      {n:35,m:"家庭",q:"对方问：`Hai figli?` 他在问什么？",o:["你有孩子吗？","你有兄弟吗？","你叫什么名字？","你喜欢孩子吗？"],a:0},
+      {n:36,m:"家庭",q:"你没有孩子，最合适的回答是？",o:["No, non ho figli.","No, non sono figli.","Sì, ho una sorella.","Sì, sono cinese."],a:0},
+      {n:37,m:"餐厅",q:"在餐厅，你想要菜单。哪一句最合适？",o:["Posso avere il menù, per favore?","Vorrei prendere un appuntamento.","Devo portare il menù?","Dov'è il menù anagrafe?"],a:0},
+      {n:38,m:"餐厅",q:"在餐厅点餐，你想说“我想要一杯咖啡，麻烦了”。哪一句最合适？",o:["Vorrei un caffè, per favore.","Devo un caffè, per favore.","Mi chiamo un caffè, per favore.","Sono di un caffè, per favore."],a:0},
+      {n:39,m:"餐厅",q:"你想点“一瓶气泡水”。哪一项最合适？",o:["una bottiglia di acqua frizzante","un bicchiere di carta d'identità","una bottiglia di cognome","un permesso frizzante"],a:0},
+      {n:40,m:"餐厅",q:"`prosciutto crudo e melone` 是什么场景里更常见的表达？",o:["餐厅点餐","办证窗口","前台拼姓名","问今天星期几"],a:0},
+      {n:41,m:"购物",q:"商店里，你想问“这个多少钱？”哪一句最合适？",o:["Scusi, questo quanto costa?","Scusi, questo come si scrive?","Scusi, questo di dove sei?","Scusi, questo come stai?"],a:0},
+      {n:42,m:"购物",q:"在商店，你想礼貌地说“我想要这个”。哪一句最合适？",o:["Vorrei questo.","Devo questo?","Sono questo.","Mi chiamo questo."],a:0},
+      {n:43,m:"餐厅",q:"别人对你说 `Grazie`，你可以自然回答：",o:["Prego.","Piacere.","Scusi.","Peccato."],a:0},
+      {n:44,m:"问路",q:"你在街上想礼貌地打断陌生人问路，开头最合适的是？",o:["Scusi...","Ciao...","Prego...","Piacere..."],a:0},
+      {n:45,m:"问路",q:"你想问“学校在哪里？”哪一句最合适？",o:["Dov'è la scuola?","Di dove è la scuola?","Come si scrive la scuola?","Che giorno è la scuola?"],a:0},
+      {n:46,m:"问路",q:"对方说：`Vai sempre dritto, poi gira a sinistra.` 他在告诉你：",o:["一直直走，然后左转","先往左转，再直走","一直等在这里","去前台拼写姓名"],a:0},
+      {n:47,m:"问路",q:"你要去警察局办事，想问“警察局在哪里？”哪一句最合适？",o:["Dov'è la questura?","Di dove è la questura?","Qual è il cognome della questura?","Come stai questura?"],a:0},
+      {n:48,m:"办证与生活服务",q:"`permesso di soggiorno` 是什么意思？",o:["居留","预约","户籍办公室","驾照"],a:0},
+      {n:49,m:"办证与生活服务",q:"办证时，`carta d'identità` 是什么？",o:["身份证","护照","证件照","印花税票"],a:0},
+      {n:50,m:"办证与生活服务",q:"办事窗口，你想问“我需要带哪些文件？”哪一句最合适？",o:["Quali documenti devo portare?","Quali documenti vorrei mangiare?","Come si scrive documenti?","Di dove sono i documenti?"],a:0},
+      {n:51,m:"办证与生活服务",q:"你想说“我需要申请居留”。哪一句最合适？",o:["Devo richiedere il permesso di soggiorno.","Vorrei mangiare il permesso di soggiorno.","Mi piace il permesso di soggiorno.","Sono il permesso di soggiorno."],a:0},
+      {n:52,m:"办证与生活服务",q:"对方问：`Dove vivi?` 你最合适的回答是？",o:["Vivo a Bologna.","Vengo dalla Cina.","Mi piace Bologna.","Ho un fratello."],a:0},
+      {n:53,m:"办证与生活服务",q:"你在办事窗口，想说“我需要去警察局”。哪一句最合适？",o:["Devo andare in questura.","Vorrei la questura al ristorante.","Mi piace andare il cognome.","Sono di questura."],a:0},
+      {n:54,m:"办证与生活服务",q:"明天上午你有事，想说“我明天上午需要在家”。哪一句最合适？",o:["Domani mattina devo essere a casa.","Domani mattina vorrei il menù.","Domani mattina quanto costa casa?","Domani mattina mi chiamo casa."],a:0},
+      {n:55,m:"喜欢与不喜欢",q:"朋友问：`Come stai?` 你状态不错，可以回答：",o:["Sto bene.","Mi chiamo bene.","Sono di bene.","Devo bene."],a:0},
+      {n:56,m:"喜欢与不喜欢",q:"你想表达“我喜欢中国食物”。哪一句最合适？",o:["Mi piace il cibo cinese.","Vorrei il cibo cinese?","Devo il cibo cinese.","Sono di cibo cinese."],a:0}
+    ];
+
+    const moduleOrder = ["发音与拼读","自我介绍","国家国籍","数字与时间","家庭","餐厅","购物","问路","办证与生活服务","喜欢与不喜欢"];
+    const letters = ["A", "B", "C", "D"];
+    const answers = Array(questions.length).fill(null);
+    let current = 0;
+
+    const introScreen = document.getElementById("introScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const resultScreen = document.getElementById("resultScreen");
+    const questionText = document.getElementById("questionText");
+    const optionsBox = document.getElementById("optionsBox");
+    const moduleTag = document.getElementById("moduleTag");
+    const progressText = document.getElementById("progressText");
+    const answeredText = document.getElementById("answeredText");
+    const barFill = document.getElementById("barFill");
+    const hintText = document.getElementById("hintText");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    document.getElementById("totalMeta").textContent = questions.length;
+    document.getElementById("startBtn").addEventListener("click", () => showScreen("quiz"));
+    document.getElementById("restartBtn").addEventListener("click", resetTest);
+    document.getElementById("againBtn").addEventListener("click", resetTest);
+    document.getElementById("reviewBtn").addEventListener("click", () => showScreen("quiz"));
+    prevBtn.addEventListener("click", () => {
+      if (current > 0) {
+        current -= 1;
+        renderQuestion();
+      }
+    });
+    nextBtn.addEventListener("click", () => {
+      if (answers[current] === null) {
+        hintText.textContent = "请先选择一个答案，再继续。";
+        return;
+      }
+      if (current === questions.length - 1) {
+        if (answers.some(v => v === null)) {
+          const firstMissing = answers.findIndex(v => v === null);
+          current = firstMissing;
+          renderQuestion();
+          hintText.textContent = "还有题目没有完成，请先补完再提交。";
+          return;
+        }
+        showResult();
+        return;
+      }
+      current += 1;
+      renderQuestion();
+    });
+
+    function showScreen(name) {
+      introScreen.classList.toggle("active", name === "intro");
+      quizScreen.classList.toggle("active", name === "quiz");
+      resultScreen.classList.toggle("active", name === "result");
+      if (name === "quiz") renderQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function formatInline(text) {
+      return text.replace(/`([^`]+)`/g, "<code>$1</code>");
+    }
+
+    function renderQuestion() {
+      const item = questions[current];
+      const done = answers.filter(v => v !== null).length;
+      moduleTag.textContent = item.m;
+      questionText.innerHTML = formatInline(item.q);
+      progressText.textContent = `第 ${current + 1} / ${questions.length} 题`;
+      answeredText.textContent = `已完成 ${done} 题`;
+      barFill.style.width = `${((current + 1) / questions.length) * 100}%`;
+      prevBtn.disabled = current === 0;
+      nextBtn.textContent = current === questions.length - 1 ? "提交测试" : "下一题";
+      nextBtn.disabled = answers[current] === null;
+      hintText.textContent = answers[current] === null ? "选择一个答案后可以继续。" : "";
+      optionsBox.innerHTML = "";
+
+      item.o.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = `option${answers[current] === index ? " selected" : ""}`;
+        button.type = "button";
+        button.innerHTML = `<span class="letter">${letters[index]}</span><span>${formatInline(option)}</span>`;
+        button.addEventListener("click", () => {
+          answers[current] = index;
+          renderQuestion();
+        });
+        optionsBox.appendChild(button);
+      });
+    }
+
+    function showResult() {
+      const score = questions.reduce((sum, q, i) => sum + (answers[i] === q.a ? 1 : 0), 0);
+      const total = questions.length;
+      const percent = Math.round((score / total) * 100);
+      const level = getLevel(score, total);
+
+      document.getElementById("scoreText").textContent = `${score}/${total}`;
+      document.getElementById("levelBadge").textContent = `${level.name} · ${percent}%`;
+      document.getElementById("levelDesc").textContent = level.desc;
+      document.getElementById("adviceText").textContent = level.advice;
+
+      renderAnalysis();
+      renderWrongList();
+      showScreen("result");
+    }
+
+    function getLevel(score, total) {
+      const a0Max = Math.floor(total * 0.4);
+      const a0pMax = Math.floor(total * 0.6);
+      const a1IntroMax = Math.floor(total * 0.8);
+      if (score <= a0Max) {
+        return {
+          name: "A0 起步",
+          desc: `当前区间：0-${a0Max} 分。你已经开始接触意大利语，但基础生活表达还需要慢慢稳住。`,
+          advice: "建议复习发音与拼读、自我介绍、国家国籍和最常见问候。先把 Mi chiamo, Sono cinese, Di dove sei 这些句子说顺。"
+        };
+      }
+      if (score <= a0pMax) {
+        return {
+          name: "A0+ 成长中",
+          desc: `当前区间：${a0Max + 1}-${a0pMax} 分。你能完成部分基础回应，但在数字、时间、餐厅购物或办证场景里还会卡住。`,
+          advice: "建议重点复习数字与时间、问价格、餐厅点餐、问路和证件词汇。做题时出错的模块可以优先回看。"
+        };
+      }
+      if (score <= a1IntroMax) {
+        return {
+          name: "A1 入门",
+          desc: `当前区间：${a0pMax + 1}-${a1IntroMax} 分。你已经能完成不少基础生活交流，个别场景需要更稳定。`,
+          advice: "建议继续强化办证与生活服务、购物、问路，以及 devo/vorrei/mi piace 这类高频表达。"
+        };
+      }
+      return {
+        name: "A1 稳固",
+        desc: `当前区间：${a1IntroMax + 1}-${total} 分。你已经能够完成大部分基础生活交流。`,
+        advice: "建议进入时间安排、交通、预约、健康、购物细节等主题，并开始练习更长一点的真实对话。"
+      };
+    }
+
+    function renderAnalysis() {
+      const box = document.getElementById("analysisBox");
+      box.innerHTML = "";
+      moduleOrder.forEach(moduleName => {
+        const items = questions
+          .map((q, i) => ({ q, i }))
+          .filter(item => item.q.m === moduleName);
+        const total = items.length;
+        const correct = items.filter(item => answers[item.i] === item.q.a).length;
+        const rate = total ? Math.round((correct / total) * 100) : 0;
+        const row = document.createElement("div");
+        row.className = "module-row";
+        row.innerHTML = `
+          <strong>${moduleName}</strong>
+          <div class="mini-bar"><div class="mini-fill" style="width:${rate}%"></div></div>
+          <span class="rate">${correct}/${total} · ${rate}%</span>
+        `;
+        box.appendChild(row);
+      });
+    }
+
+    function renderWrongList() {
+      const list = document.getElementById("wrongList");
+      const title = document.getElementById("wrongTitle");
+      const wrong = questions
+        .map((q, i) => ({ q, i }))
+        .filter(item => answers[item.i] !== item.q.a);
+      title.textContent = wrong.length ? "错题回看" : "错题回看";
+      list.innerHTML = "";
+      if (!wrong.length) {
+        const div = document.createElement("div");
+        div.className = "wrong-item";
+        div.textContent = "没有错题，很稳。可以直接进入下一阶段主题。";
+        list.appendChild(div);
+        return;
+      }
+      wrong.forEach(({ q, i }) => {
+        const div = document.createElement("div");
+        div.className = "wrong-item";
+        div.innerHTML = `第 ${q.n} 题 · ${q.m}：你的答案 ${letters[answers[i]] || "未选"}，正确答案 ${letters[q.a]}`;
+        list.appendChild(div);
+      });
+    }
+
+    function resetTest() {
+      answers.fill(null);
+      current = 0;
+      showScreen("intro");
+    }
+  </script>
+</body>
+</html>
