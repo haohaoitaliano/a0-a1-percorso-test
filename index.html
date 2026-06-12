@@ -584,63 +584,679 @@
 
   <script>
     const questions = [
-      {n:1,m:"发音与拼读",q:"你在意大利前台登记，工作人员请你拼写姓氏。你想表达“Z 像 Zara”。哪一句最合适？",o:["Z come Zara","Zara è il cognome","Mi chiamo Zara","Il mio nome è Z"],a:0},
-      {n:2,m:"发音与拼读",q:"看到单词 `casa`，其中 `ca` 的读音更接近哪一组？",o:["“卡”","“恰”","“夏”","“尼亚”"],a:0},
-      {n:3,m:"发音与拼读",q:"看到单词 `ciao`，其中 `ci` 的读音更接近哪一组？",o:["“卡”","“恰/乔”开头的软音","“格”","“尼”"],a:1},
-      {n:4,m:"发音与拼读",q:"在城市拼读法里，`H` 常用哪个词来拼？",o:["Hotel","Roma","Napoli","Venezia"],a:0},
-      {n:5,m:"发音与拼读",q:"你听到别人拼写：`M come Milano, I come Imola, N come Napoli, G come Genova`。这个名字开头最可能是？",o:["MING","MINI","GINA","NINO"],a:0},
-      {n:6,m:"发音与拼读",q:"哪个词最适合练习 `gn` 的读音？",o:["bagno","ciao","pizza","Roma"],a:0},
-      {n:7,m:"发音与拼读",q:"哪个词最适合练习 `gli` 的读音？",o:["figli","casa","euro","dove"],a:0},
-      {n:8,m:"发音与拼读",q:"你想礼貌地请对方再拼一次名字。哪一句最接近课程表达？",o:["Come si scrive il tuo nome?","Qual è il tuo nome?","Di dove sei?","Come stai?"],a:0},
-      {n:9,m:"自我介绍",q:"第一次见面，对方说：`Ciao!` 你最自然的回应是？",o:["Ciao!","Buonanotte!","Arrabbiato!","Documento!"],a:0},
-      {n:10,m:"自我介绍",q:"你想说“我叫 Ming”。哪一句最合适？",o:["Io mi chiamo Ming.","Io ti chiami Ming.","Tu mi chiamo Ming.","Lui mi chiamo Ming."],a:0},
-      {n:11,m:"自我介绍",q:"对方问：`Come ti chiami?` 他在问什么？",o:["你叫什么名字？","你是哪里人？","你怎么样？","你喜欢什么？"],a:0},
-      {n:12,m:"自我介绍",q:"你想问“那你呢？”哪一句最自然？",o:["E tu?","Anche io.","Va bene.","Non c'è male."],a:0},
-      {n:13,m:"自我介绍",q:"第一次认识别人，想说“很高兴认识你”。最合适的是？",o:["Piacere!","Prego!","Permesso!","Peccato!"],a:0},
-      {n:14,m:"自我介绍",q:"在办公室对陌生人打招呼，哪一个更礼貌？",o:["Salve!","Ciao!","E tu?","Grazie!"],a:0},
-      {n:15,m:"自我介绍",q:"晚上见到不太熟的人，最合适的问候是？",o:["Buonasera","Buongiorno","Buonanotte","Arrivederci"],a:0},
-      {n:16,m:"自我介绍",q:"离开时想说“再见”，哪一句合适？",o:["Arrivederci","Piacere","Salve","Prego"],a:0},
-      {n:17,m:"自我介绍",q:"前台问：`Qual è il cognome?` 她想知道什么？",o:["姓","名字","出生地","国籍"],a:0},
-      {n:18,m:"自我介绍",q:"你想说“我的名字是 Haohao”。哪一句最合适？",o:["Il mio nome è Haohao.","Il mio cognome è Haohao.","Sono di Haohao.","Haohao si scrive Cina."],a:0},
-      {n:19,m:"国家国籍",q:"对方问：`Di dove sei?` 你可以怎么回答？",o:["Sono di Wenzhou.","Mi chiamo Wenzhou.","Sto bene.","Vorrei Wenzhou."],a:0},
-      {n:20,m:"国家国籍",q:"你想说“我是中国人”。哪一句正确、自然？",o:["Sono cinese.","Sono Cina.","Sono di cinese.","Mi chiamo cinese."],a:0},
-      {n:21,m:"国家国籍",q:"你想问别人“你是中国人吗？”哪一句合适？",o:["Tu sei cinese?","Di dove sei cinese?","Come ti chiami cinese?","Sei di Cina nome?"],a:0},
-      {n:22,m:"国家国籍",q:"你想介绍一位男生：“他叫 Liang，是中国人，来自北京。”哪一句最合适？",o:["Lui si chiama Liang, è cinese di Pechino.","Lei si chiama Liang, è cinese di Pechino.","Lui mi chiamo Liang, sono di Pechino.","Liang come si scrive Pechino."],a:0},
-      {n:23,m:"国家国籍",q:"`Lei di dov'è?` 这句话在问什么？",o:["她是哪里人？","她叫什么名字？","她现在在哪里？","她怎么样？"],a:0},
-      {n:24,m:"国家国籍",q:"你在表格里看到 `nazionalità` 一栏，需要填国籍。你最可能填：",o:["cinese","Wenzhou","Haohao","lunedì"],a:0},
-      {n:25,m:"数字与时间",q:"`undici` 是多少？",o:["11","12","20","100"],a:0},
-      {n:26,m:"数字与时间",q:"`ventotto` 是多少？",o:["28","18","38","80"],a:0},
-      {n:27,m:"数字与时间",q:"店员说：`Sono trenta euro.` 价格是多少？",o:["30 欧元","13 欧元","3 欧元","100 欧元"],a:0},
-      {n:28,m:"数字与时间",q:"`cento` 是多少？",o:["100","10","50","1"],a:0},
-      {n:29,m:"数字与时间",q:"今天是星期一。意大利语是？",o:["lunedì","venerdì","domenica","sabato"],a:0},
-      {n:30,m:"数字与时间",q:"`oggi` 是什么意思？",o:["今天","昨天","后天","星期日"],a:0},
-      {n:31,m:"数字与时间",q:"`ieri` 是什么意思？",o:["昨天","今天","后天","明天早上"],a:0},
-      {n:32,m:"数字与时间",q:"`Che giorno è oggi?` 最接近什么意思？",o:["今天星期几/今天是什么日子？","你今天怎么样？","你今天去哪里？","今天多少钱？"],a:0},
-      {n:33,m:"家庭",q:"你想说“我有一个兄弟”。哪一句最合适？",o:["Ho un fratello.","Sono un fratello.","Mi chiamo fratello.","Vorrei un fratello."],a:0},
-      {n:34,m:"家庭",q:"你想说“我有一个姐妹”。哪一句最合适？",o:["Ho una sorella.","Ho un sorella.","Sono una sorella.","Mi piace una sorella."],a:0},
-      {n:35,m:"家庭",q:"对方问：`Hai figli?` 他在问什么？",o:["你有孩子吗？","你有兄弟吗？","你叫什么名字？","你喜欢孩子吗？"],a:0},
-      {n:36,m:"家庭",q:"你没有孩子，最合适的回答是？",o:["No, non ho figli.","No, non sono figli.","Sì, ho una sorella.","Sì, sono cinese."],a:0},
-      {n:37,m:"餐厅",q:"在餐厅，你想要菜单。哪一句最合适？",o:["Posso avere il menù, per favore?","Vorrei prendere un appuntamento.","Devo portare il menù?","Dov'è il menù anagrafe?"],a:0},
-      {n:38,m:"餐厅",q:"在餐厅点餐，你想说“我想要一杯咖啡，麻烦了”。哪一句最合适？",o:["Vorrei un caffè, per favore.","Devo un caffè, per favore.","Mi chiamo un caffè, per favore.","Sono di un caffè, per favore."],a:0},
-      {n:39,m:"餐厅",q:"你想点“一瓶气泡水”。哪一项最合适？",o:["una bottiglia di acqua frizzante","un bicchiere di carta d'identità","una bottiglia di cognome","un permesso frizzante"],a:0},
-      {n:40,m:"餐厅",q:"`prosciutto crudo e melone` 是什么场景里更常见的表达？",o:["餐厅点餐","办证窗口","前台拼姓名","问今天星期几"],a:0},
-      {n:41,m:"购物",q:"商店里，你想问“这个多少钱？”哪一句最合适？",o:["Scusi, questo quanto costa?","Scusi, questo come si scrive?","Scusi, questo di dove sei?","Scusi, questo come stai?"],a:0},
-      {n:42,m:"购物",q:"在商店，你想礼貌地说“我想要这个”。哪一句最合适？",o:["Vorrei questo.","Devo questo?","Sono questo.","Mi chiamo questo."],a:0},
-      {n:43,m:"餐厅",q:"别人对你说 `Grazie`，你可以自然回答：",o:["Prego.","Piacere.","Scusi.","Peccato."],a:0},
-      {n:44,m:"问路",q:"你在街上想礼貌地打断陌生人问路，开头最合适的是？",o:["Scusi...","Ciao...","Prego...","Piacere..."],a:0},
-      {n:45,m:"问路",q:"你想问“学校在哪里？”哪一句最合适？",o:["Dov'è la scuola?","Di dove è la scuola?","Come si scrive la scuola?","Che giorno è la scuola?"],a:0},
-      {n:46,m:"问路",q:"对方说：`Vai sempre dritto, poi gira a sinistra.` 他在告诉你：",o:["一直直走，然后左转","先往左转，再直走","一直等在这里","去前台拼写姓名"],a:0},
-      {n:47,m:"问路",q:"你要去警察局办事，想问“警察局在哪里？”哪一句最合适？",o:["Dov'è la questura?","Di dove è la questura?","Qual è il cognome della questura?","Come stai questura?"],a:0},
-      {n:48,m:"办证与生活服务",q:"`permesso di soggiorno` 是什么意思？",o:["居留","预约","户籍办公室","驾照"],a:0},
-      {n:49,m:"办证与生活服务",q:"办证时，`carta d'identità` 是什么？",o:["身份证","护照","证件照","印花税票"],a:0},
-      {n:50,m:"办证与生活服务",q:"办事窗口，你想问“我需要带哪些文件？”哪一句最合适？",o:["Quali documenti devo portare?","Quali documenti vorrei mangiare?","Come si scrive documenti?","Di dove sono i documenti?"],a:0},
-      {n:51,m:"办证与生活服务",q:"你想说“我需要申请居留”。哪一句最合适？",o:["Devo richiedere il permesso di soggiorno.","Vorrei mangiare il permesso di soggiorno.","Mi piace il permesso di soggiorno.","Sono il permesso di soggiorno."],a:0},
-      {n:52,m:"办证与生活服务",q:"对方问：`Dove vivi?` 你最合适的回答是？",o:["Vivo a Bologna.","Vengo dalla Cina.","Mi piace Bologna.","Ho un fratello."],a:0},
-      {n:53,m:"办证与生活服务",q:"你在办事窗口，想说“我需要去警察局”。哪一句最合适？",o:["Devo andare in questura.","Vorrei la questura al ristorante.","Mi piace andare il cognome.","Sono di questura."],a:0},
-      {n:54,m:"办证与生活服务",q:"明天上午你有事，想说“我明天上午需要在家”。哪一句最合适？",o:["Domani mattina devo essere a casa.","Domani mattina vorrei il menù.","Domani mattina quanto costa casa?","Domani mattina mi chiamo casa."],a:0},
-      {n:55,m:"喜欢与不喜欢",q:"朋友问：`Come stai?` 你状态不错，可以回答：",o:["Sto bene.","Mi chiamo bene.","Sono di bene.","Devo bene."],a:0},
-      {n:56,m:"喜欢与不喜欢",q:"你想表达“我喜欢中国食物”。哪一句最合适？",o:["Mi piace il cibo cinese.","Vorrei il cibo cinese?","Devo il cibo cinese.","Sono di cibo cinese."],a:0}
-    ];
+      {
+            n: 1,
+            m: "发音与拼读",
+            q: "你在意大利前台登记，工作人员请你拼写姓氏。你想表达“Z 像 Zara”。哪一句最合适？",
+            o: [
+                  "Z come Zara",
+                  "Zara è il cognome",
+                  "Mi chiamo Zara",
+                  "Il mio nome è Z"
+            ],
+            a: 0
+      },
+      {
+            n: 2,
+            m: "发音与拼读",
+            q: "看到单词 `casa`，其中 `ca` 的读音更接近哪一组？",
+            o: [
+                  "“恰”",
+                  "“夏”",
+                  "“卡”",
+                  "“尼亚”"
+            ],
+            a: 2
+      },
+      {
+            n: 3,
+            m: "发音与拼读",
+            q: "看到单词 `ciao`，其中 `ci` 的读音更接近哪一组？",
+            o: [
+                  "“卡”",
+                  "“恰/乔”开头的软音",
+                  "“格”",
+                  "“尼”"
+            ],
+            a: 1
+      },
+      {
+            n: 4,
+            m: "发音与拼读",
+            q: "在城市拼读法里，`H` 常用哪个词来拼？",
+            o: [
+                  "Roma",
+                  "Napoli",
+                  "Venezia",
+                  "Hotel"
+            ],
+            a: 3
+      },
+      {
+            n: 5,
+            m: "发音与拼读",
+            q: "你听到别人拼写：`M come Milano, I come Imola, N come Napoli, G come Genova`。这个名字开头最可能是？",
+            o: [
+                  "MINI",
+                  "MING",
+                  "GINA",
+                  "NINO"
+            ],
+            a: 1
+      },
+      {
+            n: 6,
+            m: "发音与拼读",
+            q: "哪个词最适合练习 `gn` 的读音？",
+            o: [
+                  "ciao",
+                  "pizza",
+                  "bagno",
+                  "Roma"
+            ],
+            a: 2
+      },
+      {
+            n: 7,
+            m: "发音与拼读",
+            q: "哪个词最适合练习 `gli` 的读音？",
+            o: [
+                  "casa",
+                  "euro",
+                  "dove",
+                  "figli"
+            ],
+            a: 3
+      },
+      {
+            n: 8,
+            m: "发音与拼读",
+            q: "你想礼貌地请对方再拼一次名字。哪一句最接近课程表达？",
+            o: [
+                  "Come si scrive il tuo nome?",
+                  "Qual è il tuo nome?",
+                  "Di dove sei?",
+                  "Come stai?"
+            ],
+            a: 0
+      },
+      {
+            n: 9,
+            m: "自我介绍",
+            q: "第一次见面，对方说：`Ciao!` 你最自然的回应是？",
+            o: [
+                  "Buonanotte!",
+                  "Arrabbiato!",
+                  "Ciao!",
+                  "Documento!"
+            ],
+            a: 2
+      },
+      {
+            n: 10,
+            m: "自我介绍",
+            q: "你想说“我叫 Ming”。哪一句最合适？",
+            o: [
+                  "Io ti chiami Ming.",
+                  "Io mi chiamo Ming.",
+                  "Tu mi chiamo Ming.",
+                  "Lui mi chiamo Ming."
+            ],
+            a: 1
+      },
+      {
+            n: 11,
+            m: "自我介绍",
+            q: "对方问：`Come ti chiami?` 他在问什么？",
+            o: [
+                  "你是哪里人？",
+                  "你怎么样？",
+                  "你喜欢什么？",
+                  "你叫什么名字？"
+            ],
+            a: 3
+      },
+      {
+            n: 12,
+            m: "自我介绍",
+            q: "你想问“那你呢？”哪一句最自然？",
+            o: [
+                  "E tu?",
+                  "Anche io.",
+                  "Va bene.",
+                  "Non c'è male."
+            ],
+            a: 0
+      },
+      {
+            n: 13,
+            m: "自我介绍",
+            q: "第一次认识别人，想说“很高兴认识你”。最合适的是？",
+            o: [
+                  "Prego!",
+                  "Piacere!",
+                  "Permesso!",
+                  "Peccato!"
+            ],
+            a: 1
+      },
+      {
+            n: 14,
+            m: "自我介绍",
+            q: "在办公室对陌生人打招呼，哪一个更礼貌？",
+            o: [
+                  "Ciao!",
+                  "E tu?",
+                  "Salve!",
+                  "Grazie!"
+            ],
+            a: 2
+      },
+      {
+            n: 15,
+            m: "自我介绍",
+            q: "晚上见到不太熟的人，最合适的问候是？",
+            o: [
+                  "Buongiorno",
+                  "Buonanotte",
+                  "Arrivederci",
+                  "Buonasera"
+            ],
+            a: 3
+      },
+      {
+            n: 16,
+            m: "自我介绍",
+            q: "离开时想说“再见”，哪一句合适？",
+            o: [
+                  "Arrivederci",
+                  "Piacere",
+                  "Salve",
+                  "Prego"
+            ],
+            a: 0
+      },
+      {
+            n: 17,
+            m: "自我介绍",
+            q: "前台问：`Qual è il cognome?` 她想知道什么？",
+            o: [
+                  "名字",
+                  "出生地",
+                  "姓",
+                  "国籍"
+            ],
+            a: 2
+      },
+      {
+            n: 18,
+            m: "自我介绍",
+            q: "你想说“我的名字是 Haohao”。哪一句最合适？",
+            o: [
+                  "Il mio cognome è Haohao.",
+                  "Il mio nome è Haohao.",
+                  "Sono di Haohao.",
+                  "Haohao si scrive Cina."
+            ],
+            a: 1
+      },
+      {
+            n: 19,
+            m: "国家国籍",
+            q: "对方问：`Di dove sei?` 你可以怎么回答？",
+            o: [
+                  "Mi chiamo Wenzhou.",
+                  "Sto bene.",
+                  "Vorrei Wenzhou.",
+                  "Sono di Wenzhou."
+            ],
+            a: 3
+      },
+      {
+            n: 20,
+            m: "国家国籍",
+            q: "你想说“我是中国人”。哪一句正确、自然？",
+            o: [
+                  "Sono cinese.",
+                  "Sono Cina.",
+                  "Sono di cinese.",
+                  "Mi chiamo cinese."
+            ],
+            a: 0
+      },
+      {
+            n: 21,
+            m: "国家国籍",
+            q: "你想问别人“你是中国人吗？”哪一句合适？",
+            o: [
+                  "Di dove sei cinese?",
+                  "Tu sei cinese?",
+                  "Come ti chiami cinese?",
+                  "Sei di Cina nome?"
+            ],
+            a: 1
+      },
+      {
+            n: 22,
+            m: "国家国籍",
+            q: "你想介绍一位男生：“他叫 Liang，是中国人，来自北京。”哪一句最合适？",
+            o: [
+                  "Lei si chiama Liang, è cinese di Pechino.",
+                  "Lui mi chiamo Liang, sono di Pechino.",
+                  "Lui si chiama Liang, è cinese di Pechino.",
+                  "Liang come si scrive Pechino."
+            ],
+            a: 2
+      },
+      {
+            n: 23,
+            m: "国家国籍",
+            q: "`Lei di dov'è?` 这句话在问什么？",
+            o: [
+                  "她叫什么名字？",
+                  "她现在在哪里？",
+                  "她怎么样？",
+                  "她是哪里人？"
+            ],
+            a: 3
+      },
+      {
+            n: 24,
+            m: "国家国籍",
+            q: "你在表格里看到 `nazionalità` 一栏，需要填国籍。你最可能填：",
+            o: [
+                  "cinese",
+                  "Wenzhou",
+                  "Haohao",
+                  "lunedì"
+            ],
+            a: 0
+      },
+      {
+            n: 25,
+            m: "数字与时间",
+            q: "`undici` 是多少？",
+            o: [
+                  "12",
+                  "20",
+                  "11",
+                  "100"
+            ],
+            a: 2
+      },
+      {
+            n: 26,
+            m: "数字与时间",
+            q: "`ventotto` 是多少？",
+            o: [
+                  "18",
+                  "28",
+                  "38",
+                  "80"
+            ],
+            a: 1
+      },
+      {
+            n: 27,
+            m: "数字与时间",
+            q: "店员说：`Sono trenta euro.` 价格是多少？",
+            o: [
+                  "13 欧元",
+                  "3 欧元",
+                  "100 欧元",
+                  "30 欧元"
+            ],
+            a: 3
+      },
+      {
+            n: 28,
+            m: "数字与时间",
+            q: "`cento` 是多少？",
+            o: [
+                  "100",
+                  "10",
+                  "50",
+                  "1"
+            ],
+            a: 0
+      },
+      {
+            n: 29,
+            m: "数字与时间",
+            q: "今天是星期一。意大利语是？",
+            o: [
+                  "venerdì",
+                  "lunedì",
+                  "domenica",
+                  "sabato"
+            ],
+            a: 1
+      },
+      {
+            n: 30,
+            m: "数字与时间",
+            q: "`oggi` 是什么意思？",
+            o: [
+                  "昨天",
+                  "后天",
+                  "今天",
+                  "星期日"
+            ],
+            a: 2
+      },
+      {
+            n: 31,
+            m: "数字与时间",
+            q: "`ieri` 是什么意思？",
+            o: [
+                  "今天",
+                  "后天",
+                  "明天早上",
+                  "昨天"
+            ],
+            a: 3
+      },
+      {
+            n: 32,
+            m: "数字与时间",
+            q: "`Che giorno è oggi?` 最接近什么意思？",
+            o: [
+                  "今天星期几/今天是什么日子？",
+                  "你今天怎么样？",
+                  "你今天去哪里？",
+                  "今天多少钱？"
+            ],
+            a: 0
+      },
+      {
+            n: 33,
+            m: "家庭",
+            q: "你想说“我有一个兄弟”。哪一句最合适？",
+            o: [
+                  "Sono un fratello.",
+                  "Mi chiamo fratello.",
+                  "Ho un fratello.",
+                  "Vorrei un fratello."
+            ],
+            a: 2
+      },
+      {
+            n: 34,
+            m: "家庭",
+            q: "你想说“我有一个姐妹”。哪一句最合适？",
+            o: [
+                  "Ho un sorella.",
+                  "Ho una sorella.",
+                  "Sono una sorella.",
+                  "Mi piace una sorella."
+            ],
+            a: 1
+      },
+      {
+            n: 35,
+            m: "家庭",
+            q: "对方问：`Hai figli?` 他在问什么？",
+            o: [
+                  "你有兄弟吗？",
+                  "你叫什么名字？",
+                  "你喜欢孩子吗？",
+                  "你有孩子吗？"
+            ],
+            a: 3
+      },
+      {
+            n: 36,
+            m: "家庭",
+            q: "你没有孩子，最合适的回答是？",
+            o: [
+                  "No, non ho figli.",
+                  "No, non sono figli.",
+                  "Sì, ho una sorella.",
+                  "Sì, sono cinese."
+            ],
+            a: 0
+      },
+      {
+            n: 37,
+            m: "餐厅",
+            q: "在餐厅，你想要菜单。哪一句最合适？",
+            o: [
+                  "Vorrei prendere un appuntamento.",
+                  "Posso avere il menù, per favore?",
+                  "Devo portare il menù?",
+                  "Dov'è il menù anagrafe?"
+            ],
+            a: 1
+      },
+      {
+            n: 38,
+            m: "餐厅",
+            q: "在餐厅点餐，你想说“我想要一杯咖啡，麻烦了”。哪一句最合适？",
+            o: [
+                  "Devo un caffè, per favore.",
+                  "Mi chiamo un caffè, per favore.",
+                  "Vorrei un caffè, per favore.",
+                  "Sono di un caffè, per favore."
+            ],
+            a: 2
+      },
+      {
+            n: 39,
+            m: "餐厅",
+            q: "你想点“一瓶气泡水”。哪一项最合适？",
+            o: [
+                  "un bicchiere di carta d'identità",
+                  "una bottiglia di cognome",
+                  "un permesso frizzante",
+                  "una bottiglia di acqua frizzante"
+            ],
+            a: 3
+      },
+      {
+            n: 40,
+            m: "餐厅",
+            q: "`prosciutto crudo e melone` 是什么场景里更常见的表达？",
+            o: [
+                  "餐厅点餐",
+                  "办证窗口",
+                  "前台拼姓名",
+                  "问今天星期几"
+            ],
+            a: 0
+      },
+      {
+            n: 41,
+            m: "购物",
+            q: "商店里，你想问“这个多少钱？”哪一句最合适？",
+            o: [
+                  "Scusi, questo come si scrive?",
+                  "Scusi, questo di dove sei?",
+                  "Scusi, questo quanto costa?",
+                  "Scusi, questo come stai?"
+            ],
+            a: 2
+      },
+      {
+            n: 42,
+            m: "购物",
+            q: "在商店，你想礼貌地说“我想要这个”。哪一句最合适？",
+            o: [
+                  "Devo questo?",
+                  "Vorrei questo.",
+                  "Sono questo.",
+                  "Mi chiamo questo."
+            ],
+            a: 1
+      },
+      {
+            n: 43,
+            m: "餐厅",
+            q: "别人对你说 `Grazie`，你可以自然回答：",
+            o: [
+                  "Piacere.",
+                  "Scusi.",
+                  "Peccato.",
+                  "Prego."
+            ],
+            a: 3
+      },
+      {
+            n: 44,
+            m: "问路",
+            q: "你在街上想礼貌地打断陌生人问路，开头最合适的是？",
+            o: [
+                  "Scusi...",
+                  "Ciao...",
+                  "Prego...",
+                  "Piacere..."
+            ],
+            a: 0
+      },
+      {
+            n: 45,
+            m: "问路",
+            q: "你想问“学校在哪里？”哪一句最合适？",
+            o: [
+                  "Di dove è la scuola?",
+                  "Dov'è la scuola?",
+                  "Come si scrive la scuola?",
+                  "Che giorno è la scuola?"
+            ],
+            a: 1
+      },
+      {
+            n: 46,
+            m: "问路",
+            q: "对方说：`Vai sempre dritto, poi gira a sinistra.` 他在告诉你：",
+            o: [
+                  "先往左转，再直走",
+                  "一直等在这里",
+                  "一直直走，然后左转",
+                  "去前台拼写姓名"
+            ],
+            a: 2
+      },
+      {
+            n: 47,
+            m: "问路",
+            q: "你要去警察局办事，想问“警察局在哪里？”哪一句最合适？",
+            o: [
+                  "Di dove è la questura?",
+                  "Qual è il cognome della questura?",
+                  "Come stai questura?",
+                  "Dov'è la questura?"
+            ],
+            a: 3
+      },
+      {
+            n: 48,
+            m: "办证与生活服务",
+            q: "`permesso di soggiorno` 是什么意思？",
+            o: [
+                  "居留",
+                  "预约",
+                  "户籍办公室",
+                  "驾照"
+            ],
+            a: 0
+      },
+      {
+            n: 49,
+            m: "办证与生活服务",
+            q: "办证时，`carta d'identità` 是什么？",
+            o: [
+                  "护照",
+                  "证件照",
+                  "身份证",
+                  "印花税票"
+            ],
+            a: 2
+      },
+      {
+            n: 50,
+            m: "办证与生活服务",
+            q: "办事窗口，你想问“我需要带哪些文件？”哪一句最合适？",
+            o: [
+                  "Quali documenti vorrei mangiare?",
+                  "Quali documenti devo portare?",
+                  "Come si scrive documenti?",
+                  "Di dove sono i documenti?"
+            ],
+            a: 1
+      },
+      {
+            n: 51,
+            m: "办证与生活服务",
+            q: "你想说“我需要申请居留”。哪一句最合适？",
+            o: [
+                  "Vorrei mangiare il permesso di soggiorno.",
+                  "Mi piace il permesso di soggiorno.",
+                  "Sono il permesso di soggiorno.",
+                  "Devo richiedere il permesso di soggiorno."
+            ],
+            a: 3
+      },
+      {
+            n: 52,
+            m: "办证与生活服务",
+            q: "对方问：`Dove vivi?` 你最合适的回答是？",
+            o: [
+                  "Vivo a Bologna.",
+                  "Vengo dalla Cina.",
+                  "Mi piace Bologna.",
+                  "Ho un fratello."
+            ],
+            a: 0
+      },
+      {
+            n: 53,
+            m: "办证与生活服务",
+            q: "你在办事窗口，想说“我需要去警察局”。哪一句最合适？",
+            o: [
+                  "Vorrei la questura al ristorante.",
+                  "Devo andare in questura.",
+                  "Mi piace andare il cognome.",
+                  "Sono di questura."
+            ],
+            a: 1
+      },
+      {
+            n: 54,
+            m: "办证与生活服务",
+            q: "明天上午你有事，想说“我明天上午需要在家”。哪一句最合适？",
+            o: [
+                  "Domani mattina vorrei il menù.",
+                  "Domani mattina quanto costa casa?",
+                  "Domani mattina devo essere a casa.",
+                  "Domani mattina mi chiamo casa."
+            ],
+            a: 2
+      },
+      {
+            n: 55,
+            m: "喜欢与不喜欢",
+            q: "朋友问：`Come stai?` 你状态不错，可以回答：",
+            o: [
+                  "Mi chiamo bene.",
+                  "Sono di bene.",
+                  "Devo bene.",
+                  "Sto bene."
+            ],
+            a: 3
+      },
+      {
+            n: 56,
+            m: "喜欢与不喜欢",
+            q: "你想表达“我喜欢中国食物”。哪一句最合适？",
+            o: [
+                  "Mi piace il cibo cinese.",
+                  "Vorrei il cibo cinese?",
+                  "Devo il cibo cinese.",
+                  "Sono di cibo cinese."
+            ],
+            a: 0
+      }
+];
 
     const moduleOrder = ["发音与拼读","自我介绍","国家国籍","数字与时间","家庭","餐厅","购物","问路","办证与生活服务","喜欢与不喜欢"];
     const letters = ["A", "B", "C", "D"];
