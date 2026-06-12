@@ -420,6 +420,16 @@
       border-radius: 0 7px 7px 0;
     }
 
+    .wrong-item strong {
+      display: block;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .wrong-item p {
+      margin: 5px 0;
+    }
+
     .footer-note {
       margin-top: 16px;
       color: var(--muted);
@@ -1433,7 +1443,15 @@
       wrong.forEach(({ q, i }) => {
         const div = document.createElement("div");
         div.className = "wrong-item";
-        div.innerHTML = `第 ${q.n} 题 · ${q.m}：你的答案 ${letters[answers[i]] || "未选"}，正确答案 ${letters[q.a]}`;
+        const selectedIndex = answers[i];
+        const selectedText = selectedIndex === null ? "未选" : `${letters[selectedIndex]}：${q.o[selectedIndex]}`;
+        const correctText = `${letters[q.a]}：${q.o[q.a]}`;
+        div.innerHTML = `
+          <strong>第 ${q.n} 题 · ${q.m}</strong>
+          <p>${formatInline(q.q)}</p>
+          <p><b>你的答案：</b>${formatInline(selectedText)}</p>
+          <p><b>正确答案：</b>${formatInline(correctText)}</p>
+        `;
         list.appendChild(div);
       });
     }
